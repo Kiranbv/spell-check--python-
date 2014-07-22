@@ -1,0 +1,92 @@
+# this program generates wors with spelling mistakes
+
+import random
+
+def spelling_mistake(word):
+    rand1 = random.randrange(1,3)
+    if(rand1 == 1):
+        # generate case errors
+        new_word = []
+        for i in range(0,len(word)):
+            rand2 = random.randrange(1,100)
+            if(rand2 > 50):
+                new_word.append(word[i].upper())
+            else:
+                new_word.append(word[i])
+        new_word1 = "".join(new_word)
+
+    if(rand1 == 2):
+        # generate repetition errors
+        new_word = []
+        new_word.append(word[0])
+        i = 1
+        while(i<len(word) and len(set(new_word))<len(word)):
+            if(i<0):
+                i = 1;
+            rand2 = random.randrange(1,100)
+            if(rand2 > 50):
+                new_word.append(word[i])
+                i = i + 1
+            else:
+                new_word.append(word[i-1])
+                i = i - 1             
+        new_word1 = "".join(new_word)
+
+    if(rand1 == 3):
+        # generate vowel errors
+        new_word = []
+        vowels = ["a","e","i","o","u"]
+        for i in range(0,len(word)):
+            if(word[i] == "a" or word[i] == "e" or word[i] == "i" or word[i] == "o" or word[i] == "u"):
+                rand1 = random.randrange(0,4)
+                char_temp = vowels[rand1]
+                new_word.append(char_temp)
+            else:
+                new_word.append(word[i])
+                
+        new_word1 = "".join(new_word)
+
+
+
+    return new_word1
+
+
+
+
+
+def main():
+    sentence1 = "this is an interview"
+    sentence2 = " this code is written in python"
+
+    words1 = sentence1.split(" ")
+    words2 = sentence2.split(" ")
+
+    words1_mistake = []
+    words2_mistake = []
+
+
+    for i in range(0,len(words1)):
+        print(words1[i])
+        if(len(words1[i])>2):
+           words1_mistake.append(spelling_mistake(words1[i]))
+        else:
+           words1_mistake.append(words1[i])
+
+
+    for i in range(0,len(words2)):
+        print(words2[i])
+        if(len(words2[i])>2):
+           words2_mistake.append(spelling_mistake(words2[i]))
+        else:
+           words2_mistake.append(words2[i])
+
+
+    sentence1_mistake = " ".join(words1_mistake)
+    sentence2_mistake = " ".join(words2_mistake)
+
+    print(sentence1_mistake)
+    print(sentence2_mistake)
+
+if __name__ == "__main__":
+    main()       
+
